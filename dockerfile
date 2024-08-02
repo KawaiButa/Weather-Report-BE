@@ -1,6 +1,5 @@
 FROM node:21.6.1
 RUN apt-get update && apt-get -y install redis
-EXPOSE 6379
 WORKDIR /app
 
 COPY package.json package.json
@@ -14,4 +13,6 @@ RUN npm install && npm install typescript -g
 
 RUN npm run build
 
-CMD [ "node", "./dist/index.js" ]
+RUN chmod +x ./start.sh
+
+ENTRYPOINT ["./start.sh"]
