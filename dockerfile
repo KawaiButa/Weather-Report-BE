@@ -1,8 +1,5 @@
-FROM redis:7.4.0-alpine
-FROM node:21.6.1-alpine
-RUN apt-get update && apt-get -y install redis-server
-
-RUN redis-server
+FROM node:21.6.1
+RUN apt-get update && apt-get -y install redis
 WORKDIR /app
 
 COPY package.json package.json
@@ -16,4 +13,6 @@ RUN npm install && npm install typescript -g
 
 RUN npm run build
 
-CMD [ "node", "./dist/index.js" ]
+RUN chmod +x ./start.sh
+
+ENTRYPOINT ["./start.sh"]
