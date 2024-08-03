@@ -2,6 +2,7 @@ FROM redis:7.4.0-alpine
 FROM node:21.6.1-alpine
 RUN apt-get update && apt-get -y install redis-server
 
+RUN redis-server
 WORKDIR /app
 
 COPY package.json package.json

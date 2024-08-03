@@ -19,7 +19,7 @@ emailRouter.post("/subscribe", async (req, res, next) => {
             redis.set(`user/${req.body.email}`, 0)
             html = html.replace("verification_link", `${process.env.FRONTEND_URL}verification?key=${key}&expire=${Date.now() + 300000}`)
             sendEmail(process.env.GMAIL_USER ?? "", req.body.email as string, "Confirmation mail for Weather Report Subscription", html)
-            res.status(200).send("OK")
+            res.sendStatus(200)
         }
     }
 })
@@ -37,10 +37,10 @@ emailRouter.post("/verify", async (req, res, next) => {
             await redis.del(`${req.body.key}`)
             if (user) {
                 redis.set(`user/${user}`, 1)
-                res.status(200).send("OK")
+                res.sendStatus(200)
             }
             else
-                res.status(200).send("OK")
+                res.sendStatus(200)
         }
     }
 })
@@ -51,7 +51,7 @@ emailRouter.post("/unsubscribe", async (req, res, next) => {
         const user = await redis.get(`user/${req.body.email}`)
         if (user) {
             await redis.del(`user/${req.body.email}`)
-            res.status(200).send("OK")
+            res.sendStatus(200)
         }
         else
             res.status(404).send("The email is not subscribed")

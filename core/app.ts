@@ -16,7 +16,9 @@ app.use((req: Request, res: Response, next: Function) => {
     );
     next();
 });
-
+app.get("", (req, res, next) => {
+    res.sendStatus(200)
+})
 app.use("/email", emailRouter)
 app.use("/city", cityRouter)
 app.use("/", weatherRouter)
