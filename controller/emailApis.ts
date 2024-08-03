@@ -3,7 +3,7 @@ import { MailOptions } from "nodemailer/lib/ses-transport";
 import fs from "fs"
 import ApiError from "../entities/ApiError";
 export function sendEmail(from: string, to: string, subject: string, html: string) {
-    console.log( process.env.GMAIL_USER, process.env.GMAIL_PASSWORD)
+    console.log(process.env.GMAIL_USER, process.env.GMAIL_PASSWORD)
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
